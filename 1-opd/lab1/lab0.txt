@@ -1,0 +1,29 @@
+mkdir lab0
+cd lab0
+
+mkdir eevee5
+cd eevee5
+mkdir archen
+touch misdreavus deerling growlithe pidove spearow
+
+cd ..
+
+mkdir excadrill0
+cd excadrill0
+mkdir simipour azurill
+touch swinub munchlax doduo bronzing
+
+cd ..
+touch gloom1
+
+mkdir onix2
+cd onix2
+touch clefable blissey mightyena
+
+cd ..
+touch seadra8 shedinja3
+
+cd eevee5
+echo -e 'Развитые способности Cursed Body' > misdreavus
+echo -e 'Способности\n Camouflage Tackle Growl Sand-Attack Double Kick Leech Seed Faint\nAttack Take Down Jump Kick Aromatherapy Energy Ball Charm Nature Power' > deerling
+echo -e ''
