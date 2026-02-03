@@ -1,0 +1,18 @@
+<div id="TextText" class="container">
+    <span id="ПСЖ">Hello</span>
+    <a href="/" id="Hello World">Home</a>
+</div>
+
+_________________________
+|   Ожидаемый вывод:     |
+-------------------------
+TextText
+ПСЖ
+Hello World
+
+_________________________
+|   Полученный вывод:    |
+-------------------------
+TextText
+ПСЖ
+Hello World
