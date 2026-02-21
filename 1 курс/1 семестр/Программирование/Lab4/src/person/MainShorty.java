@@ -1,26 +1,42 @@
 package person;
-import actoin.Emotions;
+import Events.forMain.EventBootFall;
+import Events.forMain.EventCall;
+import Events.forMain.EventGetStressed;
+import Events.forMain.EventRun;
+import exeptions.NullLocationException;
+import items.Boot;
+import person.enums.Emotions;
+import environment.Location;
+import person.enums.RunType;
 
 public class MainShorty extends Shorty{
     private String name;
-    public MainShorty(String name){
-        super(name);
+    private Location location;
+    private Emotions emotions;
+    private RunType runType;
+    public MainShorty(String name, Location location, Emotions emotions, RunType runType) throws NullLocationException {
+        super(name, location, emotions, runType);
+    }
+    
+    private Boot leftBoot = new Boot("Левый", false, this);
+    private Boot rightBoot = new Boot("Правый", true, this);
+    
+    public String fallBoot(){
+        EventBootFall eventBootFall = new EventBootFall();
+        return eventBootFall.reactFallBootEvent(this, rightBoot);
     }
 
-    public void getEmotion(Emotions emotion){
-        String status = "NONE";
-        switch (emotion){
-            case SCARED -> status = "страшно перепугался";
-            case JOYFUL -> status = "обрадовался";
-            case RELIEF -> status = "в безопасности";
-            case STRESSED -> status = "тревожится";
-            case NORMAL -> status = "в норме";
-        }
-        System.out.printf("%s %s%n", this.getName(), status);
+    public String call(Shorty actor){
+        EventCall eventCall = new EventCall(actor, this);
+        return eventCall.reactCallEvent();
     }
 
-    @Override
-    public void call(Shorty shorty){
-        System.out.printf("%s %s %s%n", this.getName(), "позвал персонажа:", shorty.getName());
+    public String run(){
+        EventRun eventRun = new EventRun();
+        return eventRun.reactRunEvent(this);
+    }
+    public String getStressed(Shorty reactor){
+        EventGetStressed eventGetStressed = new EventGetStressed();
+        return eventGetStressed.reactGetStressedEvent(this, reactor);
     }
 }

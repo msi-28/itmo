@@ -1,12 +1,13 @@
 package environment;
 
-import actoin.Heatable;
+import Events.forSun.EventHeatUp;
 import person.Shorty;
 
-public record Sun(String name) implements Heatable{
-    @Override
-    public void heatUp(Shorty shorty){
-        System.out.printf("%s %s %s%n", this.name, "припекает со страшной силой персонажа:", shorty.getName());
+public record Sun(String name){
+
+    public String heatUp(Shorty actor){
+        EventHeatUp eventHeatUp = new EventHeatUp();
+        return eventHeatUp.reactHeatUpEvent(actor,this);
     }
 
     @Override
