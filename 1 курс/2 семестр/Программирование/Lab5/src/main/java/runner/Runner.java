@@ -1,6 +1,8 @@
 package runner;
 
+import classes.Worker;
 import manager.CollectionManager;
+import manager.InputManager;
 import manager.ParserManager;
 
 import java.util.Date;
@@ -11,6 +13,7 @@ public class Runner {
     public static Scanner scanner = new Scanner(System.in);
     public static ParserManager parserManager = new ParserManager();
     public static CollectionManager collectionManager = new CollectionManager();
+    public static InputManager inputManager = new InputManager(scanner);
     public static Date collectionMadeDate;
 
     public void run(){

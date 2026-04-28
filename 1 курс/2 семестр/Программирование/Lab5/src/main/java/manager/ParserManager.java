@@ -25,7 +25,8 @@ public class ParserManager {
         this.commands.put("max_by_person", new MaxByPerson());
         this.commands.put("count_by_status", new CountByStatus());
         this.commands.put("print_field_ascending_salary", new PrintFieldAscendingSalary());
-        this.commands.put("read_file", new ExecuteScript());
+        this.commands.put("execute_script", new ExecuteScript());
+        this.commands.put("save", new Save());
     }
 
     public void lineParser(String s) {

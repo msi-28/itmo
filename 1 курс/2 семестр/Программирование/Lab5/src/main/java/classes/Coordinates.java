@@ -17,14 +17,6 @@ public class Coordinates {
                 ", y: " + this.y;
     }
 
-    public static Coordinates coordinatesMaker(){
-        System.out.println("Введите его координаты: ");
-        System.out.print("x: ");
-        Integer x = scanner.nextInt();
-        System.out.print("y: ");
-        long y = scanner.nextLong();
-        return new Coordinates(x, y);
-    }
 
 
 }

@@ -17,6 +17,6 @@ public class Show implements Command{
 
     @Override
     public String toString(){
-        return "show - выводит коллекцию";
+        return "show - вывести в стандартный поток все элементы коллекции в строковом представлении";
     }
 }

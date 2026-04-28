@@ -64,16 +64,16 @@ public class CollectionManager {
         return null;
     }
 
-    public Worker updateId(long oldId, long newId){
-         findById(oldId).setId(newId);
-         return findById(newId);
+    public void update(long id, Worker newWorker){
+         removeById(id);
+         newWorker.setId(id);
+         addWorker(newWorker);
     }
 
     public void removeById(long id){
         Worker element = findById(id);
         if (element != null){
             workers.remove(findById(id));
-            System.out.printf("Элемент с id %s удален%n", id);
         }
     }
 
@@ -104,5 +104,19 @@ public class CollectionManager {
             salary.add(worker.getSalary());
         }
         return salary.stream().sorted().collect(Collectors.toList());
+    }
+
+    public void saveFile(String fileName) {
+        OutputManager<Worker> oum = new OutputManager<>(fileName);
+        StringBuilder elements = new StringBuilder();
+        for (Worker worker : workers){
+            try {
+                elements.append(worker.toStringForFile());
+            }
+            catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        oum.writeFile(elements.toString());
     }
 }

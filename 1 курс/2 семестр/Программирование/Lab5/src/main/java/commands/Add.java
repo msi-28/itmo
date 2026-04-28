@@ -1,22 +1,21 @@
 package commands;
 
 import classes.*;
+import manager.InputManager;
 
-import static runner.Runner.collectionManager;
-import static runner.Runner.scanner;
+import static runner.Runner.*;
 
 public class Add implements Command{
     @Override
     public void execute(String[] args){
-        Worker worker = Worker.workerMaker();
+        Worker worker = inputManager.readWorker();
         collectionManager.addWorker(worker);
-        System.out.println("Объект добавлен в коллекцию");
-        scanner.nextLine();
+        System.out.printf("Объект с ID: %d добавлен в коллекцию%n", worker.getId());
     }
 
     @Override
     public String toString(){
-        return "add - добавляет элемент в коллекцию";
+        return "add {element} - добавить новый элемент в коллекцию";
     }
 
 

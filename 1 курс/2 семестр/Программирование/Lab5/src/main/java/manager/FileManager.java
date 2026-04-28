@@ -7,8 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import static runner.Runner.collectionManager;
-import static runner.Runner.parserManager;
+import static runner.Runner.*;
 
 public class FileManager {
     private String filename;
@@ -18,32 +17,21 @@ public class FileManager {
     }
 
     public void readFile() {
+        Scanner preScanner = inputManager.getScanner();
         File file = new File(filename);
         try (Scanner scanner = new Scanner(file, "UTF-8")) {
+            inputManager.setScanner(scanner);
+            inputManager.setScriptMode(true);
             while (scanner.hasNextLine()) {
-                String data = scanner.nextLine();
-                Scanner scanner1 = new Scanner(data);
-                System.out.println(scanner1);
+                String data = scanner.nextLine().trim();
+                System.out.println(data);
+                parserManager.lineParser(data);
             }
+            inputManager.setScanner(preScanner);
+            inputManager.setScriptMode(false);
         }
         catch (FileNotFoundException e){
             e.printStackTrace();
         }
     }
-
-//    public void readFile() {
-//        File file = new File(filename);
-//        try (Scanner scanner = new Scanner(file, "UTF-8")) {
-//            scanner.nextLine();
-//            while (scanner.hasNextLine()) {
-//                String[] data = scanner.nextLine().split(";");
-//                Worker worker = new Worker(Long.parseLong(data[0]), data[1]);
-//                collectionManager.addWorker(worker);
-//            }
-//        }
-//        catch (FileNotFoundException e){
-//            e.printStackTrace();
-//        }
-//    }
-
 }

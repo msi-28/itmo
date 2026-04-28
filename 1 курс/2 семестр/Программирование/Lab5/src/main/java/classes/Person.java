@@ -1,7 +1,5 @@
 package classes;
 
-import static classes.Color.colorMaker;
-
 import static runner.Runner.scanner;
 
 public class Person {
@@ -18,15 +16,6 @@ public class Person {
     @Override
     public String toString(){
         return "height: " + this.height + ", eye_color: " + this.eyeColor + ", hair_color: " + this.hairColor;
-    }
-
-    public static Person personMaker(){
-        System.out.println("Введите его характеристики:");
-        System.out.print("Рост: ");
-        int height = scanner.nextInt();
-        Color eyeColor = colorMaker("Цвет глаз: ");
-        Color hairColor = colorMaker("Цвет волос: ");
-        return new Person(height, eyeColor, hairColor);
     }
 
     public int getHeight() {

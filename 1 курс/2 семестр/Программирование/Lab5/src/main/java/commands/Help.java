@@ -17,6 +17,6 @@ public class Help implements Command{
 
     @Override
     public String toString(){
-        return "help - выводит информацию о командах";
+        return "help - вывести справку по доступным командам";
     }
 }

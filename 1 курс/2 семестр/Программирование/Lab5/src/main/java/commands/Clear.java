@@ -10,7 +10,7 @@ public class Clear implements Command{
 
     @Override
     public String toString(){
-        return "clear - отчистка коллекции";
+        return "clear - очистить коллекцию";
     }
 
 }

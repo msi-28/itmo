@@ -26,6 +26,6 @@ public class Info implements Command{
 
     @Override
     public String toString() {
-        return "info - выводит информацию о коллекции";
+        return "info - вывести в стандартный поток информацию о коллекции";
     }
 }

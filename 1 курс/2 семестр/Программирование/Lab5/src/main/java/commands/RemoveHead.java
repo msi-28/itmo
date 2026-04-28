@@ -14,6 +14,6 @@ public class RemoveHead implements Command{
 
     @Override
     public String toString(){
-        return "remove_head - выводит первый элемент коллекции и удаляет его";
+        return "remove_head - вывести первый элемент коллекции и удалить его";
     }
 }

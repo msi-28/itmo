@@ -2,19 +2,19 @@ package commands;
 
 import classes.Worker;
 
-import static runner.Runner.collectionManager;
-import static runner.Runner.scanner;
+import static runner.Runner.*;
 
 public class AddIfMin implements Command{
     @Override
     public void execute(String[] args){
-        Worker worker = Worker.workerMaker();
+        Worker worker = inputManager.readWorker();
         System.out.printf("%s%n", collectionManager.addIfMin(worker));
         scanner.nextLine();
     }
 
     @Override
     public String toString(){
-        return "add_if_min - добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции";
+        return "add_if_min {element}- добавить новый элемент в коллекцию, если его значение меньше, " +
+                "чем у наименьшего элемента этой коллекции";
     }
 }

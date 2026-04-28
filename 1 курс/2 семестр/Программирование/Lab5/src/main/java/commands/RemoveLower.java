@@ -2,13 +2,12 @@ package commands;
 
 import classes.Worker;
 
-import static runner.Runner.collectionManager;
-import static runner.Runner.scanner;
+import static runner.Runner.*;
 
 public class RemoveLower implements Command{
     @Override
     public void execute(String[] args){
-        Worker worker = Worker.workerMaker();
+        Worker worker = inputManager.readWorker();
         System.out.println(collectionManager.removeLower(worker));
         scanner.nextLine();
     }

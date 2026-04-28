@@ -1,7 +1,9 @@
 package classes;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 
+import static runner.Runner.collectionManager;
 import static runner.Runner.scanner;
 
 public class Worker implements Comparable<Worker>{
@@ -17,8 +19,8 @@ public class Worker implements Comparable<Worker>{
     public Worker (String name, Coordinates coordinates,
                   Integer salary, Position position, Status status, Person person) {
 //        this.id = (long) (Math.random()*100);
-//        this.id = 1L;
-        this.id = this.hashCode();
+        this.id = collectionManager.getCollection().size() + 1;
+//        this.id = this.hashCode();
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = new Date();
@@ -75,27 +77,13 @@ public class Worker implements Comparable<Worker>{
                 "; person: " + this.person;
     }
 
-    public static Worker workerMaker(){
-        System.out.print("Введите имя: ");
-        String name = scanner.nextLine();
-        Coordinates coordinates = Coordinates.coordinatesMaker();
-        System.out.print("Введите его ЗП: ");
-        Integer salary = scanner.nextInt();
-        Position position = Position.positionMaker();
-        Status status = Status.statusMaker();
-        Person person = Person.personMaker();
-        return new Worker(name, coordinates, salary, position, status, person);
+    public String toStringForFile() throws IllegalAccessException {
+        StringBuilder allFields = new StringBuilder();
+        Class<?> clazz = this.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields){
+            allFields.append(field.get(this).toString() + ";");
+        }
+        return allFields + "\n";
     }
-
-
-
-    //    @Override
-//    public boolean validate() {
-//        if (id == null || name == null || coordinates == null || creationDate == null || salary == null
-//        || position == null || status == null || person == null) return false;
-//
-//        if (id <= 0 || salary <= 0 || name.isEmpty()) return false;
-//
-//        return true;
-//    }
 }

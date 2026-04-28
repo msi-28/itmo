@@ -1,19 +1,21 @@
 package commands;
 
-import static runner.Runner.collectionManager;
-import static runner.Runner.scanner;
+import classes.Worker;
+
+import static runner.Runner.*;
 
 public class Update implements Command{
     @Override
     public void execute(String[] args){
-        long oldId = Long.parseLong(args[1]);
-        long newId = Long.parseLong(args[2]);
-        collectionManager.updateId(oldId, newId);
-        System.out.println("Id элемента коллекции изменен");
+        long id = Long.parseLong(args[1]);
+        System.out.printf("Введите новое значение элемента с id %d%n", id);
+        Worker worker = inputManager.readWorker();
+        collectionManager.update(id, worker);
+        System.out.println("Элемент изменен");
     }
 
     @Override
     public String toString(){
-        return "update {old_id} {new_id} - обновляет значение элемента коллекции, id которого равен заданному";
+        return "update id {element} - обновить значение элемента коллекции, id которого равен заданному";
     }
 }

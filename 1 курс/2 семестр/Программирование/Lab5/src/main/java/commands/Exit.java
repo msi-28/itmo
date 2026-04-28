@@ -11,7 +11,7 @@ public class Exit implements Command{
 
     @Override
     public String toString(){
-        return "exit - завершает выполнение программы";
+        return "exit - завершить программу (без сохранения в файл)";
     }
 
 }
