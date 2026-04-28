@@ -9,7 +9,6 @@ public class RemoveLower implements Command{
     public void execute(String[] args){
         Worker worker = inputManager.readWorker();
         System.out.println(collectionManager.removeLower(worker));
-        scanner.nextLine();
     }
 
     @Override

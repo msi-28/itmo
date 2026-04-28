@@ -1,12 +1,12 @@
 package classes;
 
-import java.util.ArrayList;
-
-import static runner.Runner.scanner;
-
-public enum Position{
+public enum Position implements Gettable<Position>, Comparable<Position>{
     ENGINEER,
     DEVELOPER,
     LEAD_DEVELOPER,
     BAKER;
+
+    public static String getPositions(){
+        return Gettable.getValues(Position.class);
+    }
 }

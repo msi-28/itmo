@@ -5,6 +5,10 @@ import classes.*;
 import java.util.Scanner;
 import java.util.function.Function;
 
+import static classes.Color.getColors;
+import static classes.Position.getPositions;
+import static classes.Status.getStatus;
+
 public class InputManager {
     private Scanner scanner;
     private boolean scriptMode = false;
@@ -98,8 +102,8 @@ public class InputManager {
             if (val <= 0) throw new IllegalArgumentException();
             return val;
         }, true, "Значение должно быть числом больше 0");
-        Color eyeColor = readEnum(Color.class, "Цвет глаз: ", false);
-        Color hairColor = readEnum(Color.class, "Цвет волос: ", true);
+        Color eyeColor = readEnum(Color.class, "Цвет глаз (" + getColors() + "): ", false);
+        Color hairColor = readEnum(Color.class, "Цвет волос (" + getColors() + "): ", true);
         return new Person(height, eyeColor, hairColor);
     }
 
@@ -119,9 +123,9 @@ public class InputManager {
         }, false, "Значение должно быть числом больше 0");
 
         Position position = readEnum(Position.class,
-                "Введите его позицию (engineer, developer, lead_developer, baker): ", false);
+                "Введите его позицию (" + getPositions() +  "): ", false);
         Status status = readEnum(Status.class,
-                "Введите его статус (fired, hired, recommended_for_promotion): ", false);
+                "Введите его статус (" +  getStatus()+ "): ", false);
         Person person = readPerson();
         return new Worker(name, coordinates, salary, position, status, person);
     }

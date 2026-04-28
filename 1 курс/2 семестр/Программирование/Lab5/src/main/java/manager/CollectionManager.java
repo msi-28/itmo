@@ -24,9 +24,9 @@ public class CollectionManager {
     }
 
     public String removeLower(Worker ref_worker){
-        LinkedList<Worker> copy_workers = workers;
+        LinkedList<Worker> copy_workers = (LinkedList<Worker>) workers.clone();
         for (Worker worker : workers) {
-            if (worker.getId() < ref_worker.getId()){
+            if (worker.compareTo(ref_worker) > 0){
                 copy_workers.remove(worker);
             }
         }

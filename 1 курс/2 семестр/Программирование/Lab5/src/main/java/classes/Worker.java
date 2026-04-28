@@ -1,7 +1,7 @@
 package classes;
 
 import java.lang.reflect.Field;
-import java.util.Date;
+import java.util.*;
 
 import static runner.Runner.collectionManager;
 import static runner.Runner.scanner;
@@ -19,8 +19,9 @@ public class Worker implements Comparable<Worker>{
     public Worker (String name, Coordinates coordinates,
                   Integer salary, Position position, Status status, Person person) {
 //        this.id = (long) (Math.random()*100);
-        this.id = collectionManager.getCollection().size() + 1;
+//        this.id = collectionManager.getCollection().size() + 1;
 //        this.id = this.hashCode();
+        this.id = 1L;
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = new Date();
@@ -61,8 +62,28 @@ public class Worker implements Comparable<Worker>{
 
     @Override
     public int compareTo(Worker other) {
-        // Сортировка по имени (лексикографически)
-        return Long.compare(this.id, other.id);
+        Class<?> clazz = this.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            System.out.println(field);
+            try {
+                Object val1 = field.get(this);
+                Object val2 = field.get(other);
+                if (val1.equals(val2)) continue;
+                if (val1.equals(null)) return -1;
+                if (val2.equals(null)) return 1;
+
+                if (val1 instanceof Comparable && !val1.getClass().equals(this.creationDate.getClass())) {
+                    int res = ((Comparable<Object>) val1).compareTo(val2);
+                    if (res != 0) return res;
+                }
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return 0;
+
     }
 
     @Override
@@ -78,11 +99,19 @@ public class Worker implements Comparable<Worker>{
     }
 
     public String toStringForFile() throws IllegalAccessException {
-        StringBuilder allFields = new StringBuilder();
+        StringJoiner allFields = new StringJoiner(";");
         Class<?> clazz = this.getClass();
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields){
-            allFields.append(field.get(this).toString() + ";");
+            String content = field.get(this).toString();
+
+            if (field.toString().contains(".coordinates") || field.toString().contains(".person") ) {
+
+                for (String st : content.split(", ")){
+                    allFields.add(st.split(": ")[1]);
+                }
+            }
+            else allFields.add(content);
         }
         return allFields + "\n";
     }

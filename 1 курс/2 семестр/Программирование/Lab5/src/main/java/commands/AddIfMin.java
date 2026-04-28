@@ -9,7 +9,6 @@ public class AddIfMin implements Command{
     public void execute(String[] args){
         Worker worker = inputManager.readWorker();
         System.out.printf("%s%n", collectionManager.addIfMin(worker));
-        scanner.nextLine();
     }
 
     @Override
