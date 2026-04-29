@@ -20,9 +20,11 @@ public class Update implements Command{
     }
 
     public boolean checkArgs(String[] args) {
-        if (args[1].getClass().equals(long.class)) {
+        try{
+            Long.parseLong(args[1]);
             return true;
-        } else {
+        }
+        catch (NumberFormatException e){
             System.out.println("Не верный тип аргумента");
             return false;
         }
