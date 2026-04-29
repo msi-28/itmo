@@ -6,7 +6,19 @@ public class Save implements Command{
 
     @Override
     public void execute(String[] args){
-        collectionManager.saveFile(args[1]);
+        if (checkArgs(args)) {
+            collectionManager.saveFile(args[1]);
+        }
+    }
+
+    public boolean checkArgs(String[] args){
+        if (args[1].contains(".csv")){
+            return true;
+        }
+        else{
+            System.out.println("Сохранить коллекцию можно только в файл формата .csv");
+            return false;
+        }
     }
 
     @Override

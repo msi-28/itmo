@@ -32,12 +32,13 @@ public class ParserManager {
     public void lineParser(String s) {
         String[] command = s.trim().replace("\\s", " ").split(" ");
         if (this.commands.containsKey(command[0])) {
-            List<String> argsCommands = List.of("remove_by_id", "update", "execute_script", "count_by_status");
-            Command cmd = this.commands.get(command[0]);
-            if (argsCommands.contains(command[0]) && command.length == 1){
-                System.out.println("для этой команды необходимо передать аргумент");
+            try {
+                Command cmd = this.commands.get(command[0]);
+                cmd.execute(command);
             }
-            cmd.execute(command);
+            catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Недостаточное количество аргументов! Для справки введите help");
+            }
         }
     }
 

@@ -2,12 +2,14 @@ package manager;
 
 import classes.*;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.Function;
 
 import static classes.Color.getColors;
 import static classes.Position.getPositions;
 import static classes.Status.getStatus;
+import static runner.Runner.collectionManager;
 
 public class InputManager {
     private Scanner scanner;
@@ -40,7 +42,6 @@ public class InputManager {
 
     // базовое чтение строки
     public String readLine(){
-        if (!scanner.hasNextLine()) return null;
         String line = scanner.nextLine().trim();
         if (scriptMode){
             System.out.println("[Script]: " + line);
@@ -50,33 +51,37 @@ public class InputManager {
 
     // универсальное чтение значений
     public <T> T readValue(String message, Function<String, T> parser, boolean required, String errorMessage){
-        while (true){
-            System.out.print(message);
-            String line = readLine();
-            if (line == null){
-                if (required){
-                    System.out.println("Это поле обязательно для заполнения");
-                    continue;
+        try {
+            while (true) {
+                System.out.print(message);
+                String line = readLine();
+                if (line == null) {
+                    if (required) {
+                        System.out.println("Это поле обязательно для заполнения");
+                        continue;
+                    }
+                    return null;
                 }
-                return null;
-            }
-            try {
-                return parser.apply(line);
-            }
-            catch (Exception e){
-                if (scriptMode) throw new RuntimeException();
-                System.out.println(errorMessage +  ". Попробуйте еще раз");
-            }
+                try {
+                    return parser.apply(line);
+                } catch (Exception e) {
+                    if (scriptMode) throw new RuntimeException();
+                    System.out.println(errorMessage + ". Попробуйте еще раз");
+                }
 
+            }
+        }
+        catch (NoSuchElementException e){
+            System.out.println("Недопустимое значение, завершение ввода");
+            collectionManager.exit();
+            return null;
         }
     }
 
-    // enum
     public <T extends Enum<T>> T readEnum(Class<T> enumClass, String message, boolean required){
         return readValue(message, s->Enum.valueOf(enumClass, s.toUpperCase()), required, "Такого элемента нет в списке");
     }
 
-    // Coordinates
     public Coordinates readCoordinates(){
         System.out.println("Введите его координаты: ");
         Integer x = readValue("x: ", s->{
@@ -94,7 +99,6 @@ public class InputManager {
         return new Coordinates(x, y);
     }
 
-    // Person
     public Person readPerson(){
         System.out.println("Введите его характеристики:");
         int height = readValue("Рост: ", s->{
@@ -107,7 +111,6 @@ public class InputManager {
         return new Person(height, eyeColor, hairColor);
     }
 
-    // Worker
     public Worker readWorker(){
         String name = readValue("Введите имя: ", s->{
             if(s.trim().isEmpty()) throw new IllegalArgumentException();

@@ -19,9 +19,9 @@ public class Worker implements Comparable<Worker>{
     public Worker (String name, Coordinates coordinates,
                   Integer salary, Position position, Status status, Person person) {
 //        this.id = (long) (Math.random()*100);
-//        this.id = collectionManager.getCollection().size() + 1;
+        this.id = collectionManager.getCollection().size() + 1;
 //        this.id = this.hashCode();
-        this.id = 1L;
+//        this.id = 1L;
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = new Date();
@@ -71,8 +71,8 @@ public class Worker implements Comparable<Worker>{
                 Object val1 = field.get(this);
                 Object val2 = field.get(other);
                 if (val1.equals(val2)) continue;
-                if (val1.equals(null)) return -1;
-                if (val2.equals(null)) return 1;
+                if (val1 == null) return -1;
+                if (val2 == null) return 1;
 
                 if (val1 instanceof Comparable && !val1.getClass().equals(this.creationDate.getClass())) {
                     int res = ((Comparable<Object>) val1).compareTo(val2);

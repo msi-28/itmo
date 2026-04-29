@@ -31,7 +31,7 @@ public class FileManager {
             inputManager.setScriptMode(false);
         }
         catch (FileNotFoundException e){
-            e.printStackTrace();
+            System.out.printf("Файл с именем \"%s\" не найден%n", filename);;
         }
     }
 }

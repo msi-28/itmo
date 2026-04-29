@@ -80,7 +80,7 @@ public class CollectionManager {
     public String addIfMin(Worker worker) {
         if (!workers.isEmpty()) {
             Worker min_worker = Collections.min(workers);
-            if (min_worker.getId() > worker.getId()) {
+            if (worker.compareTo(min_worker) < 0) {
                 addWorker(worker);
                 return "Новый элемент добавлен";
             }

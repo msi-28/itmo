@@ -2,6 +2,7 @@ package commands;
 
 import classes.Status;
 
+import static classes.Status.getStatus;
 import static runner.Runner.collectionManager;
 
 public class CountByStatus implements Command {
@@ -12,7 +13,7 @@ public class CountByStatus implements Command {
             System.out.println(collectionManager.countByStatus(status));
         }
         catch (IllegalArgumentException e){
-            System.out.println("Указан неверный статус! Вводите только статус из списка: fired, hired, recommended_for_promotion");
+            System.out.println("Указан неверный статус! Вводите только статус из списка: " + getStatus());
         }
     }
 
