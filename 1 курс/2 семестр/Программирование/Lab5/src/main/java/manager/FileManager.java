@@ -1,22 +1,30 @@
 package manager;
 
-import classes.Worker;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 import static runner.Runner.*;
 
+/**
+ * Класс, отвечающий за выполнение скрипта из файла
+ * @author vmn
+ */
 public class FileManager {
     private String filename;
 
+    /**
+     * Конструктор
+     * @param fileName
+     */
     public FileManager(String fileName) {
         this.filename = fileName;
     }
 
-    public void readFile() {
+    /**
+     * Чтение файла и выполнение скрипта из него
+     */
+    public void executeFile() {
         Scanner preScanner = inputManager.getScanner();
         File file = new File(filename);
         try (Scanner scanner = new Scanner(file, "UTF-8")) {

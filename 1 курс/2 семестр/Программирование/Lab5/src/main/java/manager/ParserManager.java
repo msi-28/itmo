@@ -3,14 +3,13 @@ package manager;
 import commands.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.TreeMap;
 
 public class ParserManager {
-    private HashMap<String, Command> commands;
+    private TreeMap<String, Command> commands;
 
     public ParserManager() {
-        this.commands = new HashMap<String, Command>();
+        this.commands = new TreeMap<String, Command>();
         this.commands.put("help", new Help());
         this.commands.put("info", new Info());
         this.commands.put("clear", new Clear());
@@ -37,8 +36,11 @@ public class ParserManager {
                 cmd.execute(command);
             }
             catch (ArrayIndexOutOfBoundsException e){
-                System.out.println("Недостаточное количество аргументов! Для справки введите help");
+                System.out.println("Недостаточное количество аргументов! Для справки о командах введите help");
             }
+        }
+        else {
+            System.out.println("Такой команды нет. Для справки о командах введите help");
         }
     }
 

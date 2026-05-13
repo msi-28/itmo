@@ -1,11 +1,20 @@
 package commands;
 
-import classes.Status;
+import modules.Status;
 
-import static classes.Status.getStatus;
+import static modules.Status.getStatus;
 import static runner.Runner.collectionManager;
 
+/**
+ * Класс команды, которая считает количество работников, имеющих статус, переданный в качестве аргумента
+ * @author vmn
+ */
 public class CountByStatus implements Command {
+    /**
+     * Основной метод, внутри которого подготавливаются данные, вызывается метод, отвечающий за добавление элемента
+     * и происходит вывод, означающий завершение выполнения действия
+     * @param args
+     */
     @Override
     public void execute(String[] args){
         try {
@@ -17,6 +26,12 @@ public class CountByStatus implements Command {
         }
     }
 
+    //СДЕЛАТЬ CheckArgs()!!!!!!! ну это не супер обязательно, но стилистически наверное желательно
+
+    /**
+     * Возвращает описание команды для справки
+     * @return строковое представление описания того, что делает команда и какие параметры она принимает
+     */
     @Override
     public String toString(){
         return "count_by_status status - вывести количество элементов, значение поля status которых равно заданному";

@@ -1,10 +1,19 @@
 package commands;
 
-import classes.Worker;
+import modules.Worker;
 
 import static runner.Runner.*;
 
+/**
+ * Класс команды, которая обновляет значение элемента коллекции по его id
+ * @author vmn
+ */
 public class Update implements Command{
+    /**
+     * Основной метод, внутри которого подготавливаются данные, вызывается метод, отвечающий за обновление значения
+     * элемента и происходит вывод, означающий завершение выполнения действия
+     * @param args
+     */
     @Override
     public void execute(String[] args){
         if (checkArgs(args)) {
@@ -18,7 +27,11 @@ public class Update implements Command{
         }
 
     }
-
+    /**
+     * Метод, проверяющий тип передаваемого аргумента
+     * @param args
+     * @return true, если класс аргумента long, false если класс аргумента иной
+     */
     public boolean checkArgs(String[] args) {
         try{
             Long.parseLong(args[1]);
@@ -29,7 +42,10 @@ public class Update implements Command{
             return false;
         }
     }
-
+    /**
+     * Возвращает описание команды для справки
+     * @return строковое представление описания того, что делает команда и какие параметры она принимает
+     */
     @Override
     public String toString(){
         return "update id {element} - обновить значение элемента коллекции, id которого равен заданному";

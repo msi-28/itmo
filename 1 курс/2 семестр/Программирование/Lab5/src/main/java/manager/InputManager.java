@@ -1,22 +1,29 @@
 package manager;
 
-import classes.*;
+import modules.*;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import static classes.Color.getColors;
-import static classes.Position.getPositions;
-import static classes.Status.getStatus;
+import static modules.Color.getColors;
+import static modules.Position.getPositions;
+import static modules.Status.getStatus;
 import static runner.Runner.collectionManager;
 
+/**
+ * Класс отвечающий за ввод данных с консоли и с файла
+ * @author vmn
+ */
 public class InputManager {
     private Scanner scanner;
     private boolean scriptMode = false;
     private String fileName = null;
 
-
+    /**
+     * Конструктор
+     * @param scanner
+     */
     public InputManager(Scanner scanner){
         this.scanner = scanner;
     }
@@ -32,15 +39,11 @@ public class InputManager {
         System.out.printf("=============[SCRIPT MODE: %b]=============%n", scriptMode);
         this.scriptMode = scriptMode;
     }
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
 
-    public boolean isScriptMode(){
-        return scriptMode;
-    }
-
-    // базовое чтение строки
+    /**
+     * Чтение строки
+     * @return
+     */
     public String readLine(){
         String line = scanner.nextLine().trim();
         if (scriptMode){
@@ -49,7 +52,15 @@ public class InputManager {
         return line.isEmpty() ? null : line;
     }
 
-    // универсальное чтение значений
+    /**
+     * Универсальное чтение значений и их валидация
+     * @param message
+     * @param parser
+     * @param required
+     * @param errorMessage
+     * @return Введенное в необходимом типе значение или null, если введено /n и это допустимо
+     * @param <T>
+     */
     public <T> T readValue(String message, Function<String, T> parser, boolean required, String errorMessage){
         try {
             while (true) {
@@ -78,10 +89,22 @@ public class InputManager {
         }
     }
 
+    /**
+     * Чтение enum'ов
+     * @param enumClass
+     * @param message
+     * @param required
+     * @return Введенное с типом enum значение или null, если введено /n и это допустимо
+     * @param <T>
+     */
     public <T extends Enum<T>> T readEnum(Class<T> enumClass, String message, boolean required){
         return readValue(message, s->Enum.valueOf(enumClass, s.toUpperCase()), required, "Такого элемента нет в списке");
     }
 
+    /**
+     * Чтение полей Coordinates и их валидация
+     * @return Объект типа Coordinates с введенными значениями
+     */
     public Coordinates readCoordinates(){
         System.out.println("Введите его координаты: ");
         Integer x = readValue("x: ", s->{
@@ -99,6 +122,10 @@ public class InputManager {
         return new Coordinates(x, y);
     }
 
+    /**
+     * Чтение полей Person и их валидация
+     * @return Объект типа Person с введенными значениями
+     */
     public Person readPerson(){
         System.out.println("Введите его характеристики:");
         int height = readValue("Рост: ", s->{
@@ -111,6 +138,10 @@ public class InputManager {
         return new Person(height, eyeColor, hairColor);
     }
 
+    /**
+     * Чтение полей Worker
+     * @return Объект типа Worker с введенными значениями
+     */
     public Worker readWorker(){
         String name = readValue("Введите имя: ", s->{
             if(s.trim().isEmpty()) throw new IllegalArgumentException();
